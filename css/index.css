@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+:root{
+    --white:#FFF;
+    --green:#0EBB4c;
+    --black:#000;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
+html,body{
+    background-color: var(--white);
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    overflow-x: hidden;
+}
+a,button{
+    cursor: pointer;
+}
+.logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10%;
+
+    
+}
+
+.brand-name{
+    color: var(--green);
+    font-size: 28px;
+    text-align: center;
+}
+.logo-title{
+    font-weight: 500;
+    font-size: 30px;
+}
+
+
+.explore-btn > a{
+    background-color: var(--green);
+    color: var(--white);
+    font-size: 1.2rem;
+    border: 2px solid var(--green);
+}
+
+.explore-btn > a:hover {
+    background-color: var(--white);
+    border: 2px solid var(--green);
+    color: var(--green);
+}
+
+.acc-title{
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--black);
+}
+
+.acc-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:24px;
+}
+.img-container{
+    height: 100px;
+    width: 225px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;   
+}
+.img-container > img {
+   height: 100%;
+   width: 100%;
+   object-fit: contain;
+}
+.card{
+    width: fit-content;
+    flex-grow: 1;
+    margin-bottom: 12px;
+    
+}
+

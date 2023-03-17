@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- static css -->
+    <link rel="stylesheet" href="./css/profile.css">
+    <title>Guvi | Profile</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="container">
+            <div class="row p-5">
+                <div class="col-8 card-container shadow ">
+                    <div class="d-flex">
+                        <a class="btn btn-danger ms-auto  mt-4 me-3" id="logout" href="./login.html">LogOut</a>
+                    </div>
+                    <div class="container m-4">
+                        <div class="header-container ">
+                            <p class="header text-center text-dark fw-bold fs-3 m-5">Profile</p>
+
+                        </div>
+                    </div>
+
+                    <div id="content" class="mx-5">
+                    </div>
+
+                    <!-- <a class="btn link" href="./update.html">Update</a> -->
+                    <button class="btn link mt-2 mx-auto" style="display :none;" id="save">save</button>
+                    <button class="btn link mt-2" id="update">Update</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<!-- Bootstrap js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+<script src="./js/profile.js"></script>
+
+</html>
