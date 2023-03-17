@@ -1,16 +1,21 @@
 <?php
+//import
 require_once __DIR__ . '/../vendor/autoload.php';
-$con = new mysqli("localhost", "root", "");
 
+//sql init
+$con = new mysqli("localhost", "root", "");
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
 mysqli_select_db($con, "phpdev");
 
+
+//redis init
 $redis = new Redis();
 $redis->connect("localhost", 6379);
 
 
+//login route
 if (isset($_POST['login'])) {
     try {
         $email = mysqli_real_escape_string($con, $_POST['email']);
@@ -30,9 +35,10 @@ if (isset($_POST['login'])) {
         $encpass = $result['password'];
         if (mysqli_num_rows($query_run) == 1) {
 
+            //verifying the password
             if (password_verify($password, $encpass)) {
+                //mongo db init
                 $client = new MongoDB\Client('mongodb+srv://guvi:guvi@cluster0.iocqv1o.mongodb.net/?retryWrites=true&w=majority');
-                // echo $email;
                 if ($client) {
                     $users = $client->selectCollection('GUVI', 'userdetails');
                     $document = $users->findOne(['email' => htmlspecialchars($_POST['email'])]);
@@ -50,7 +56,6 @@ if (isset($_POST['login'])) {
                     $res = [
                         "message" => "Server Error",
                         "status" => 500
-
                     ];
                     echo json_encode($res);
                     return;

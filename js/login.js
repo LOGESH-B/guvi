@@ -1,24 +1,10 @@
-const getCookie = (cname) => {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 
 
+//checking session
 // var cookie_email = getCookie("username");
 var cookie_email = localStorage.getItem("username");;
 console.log(cookie_email);
-if (cookie_email !=null) {
+if (cookie_email != null) {
     location.href = "/guvi/profile.html";
 }
 
@@ -49,7 +35,7 @@ $('#login').on('click', () => {
                 alert(res.message);
                 console.log(res.user);
                 var expires = (new Date(Date.now() + 1000 * 86400)).toUTCString();
-                localStorage.setItem("username",email);
+                localStorage.setItem("username", email);
                 // document.cookie = "username=" + res.user.email + ";expires=" + expires + ";path=/;";
                 location.href = "/guvi/profile.html"
             } else if (res.status == 500) {
@@ -67,3 +53,20 @@ $('#login').on('click', () => {
 
 })
 
+//fun to parse BrowserCookie
+
+// const getCookie = (cname) => {
+//     let name = cname + "=";
+//     let decodedCookie = decodeURIComponent(document.cookie);
+//     let ca = decodedCookie.split(';');
+//     for (let i = 0; i < ca.length; i++) {
+//         let c = ca[i];
+//         while (c.charAt(0) == ' ') {
+//             c = c.substring(1);
+//         }
+//         if (c.indexOf(name) == 0) {
+//             return c.substring(name.length, c.length);
+//         }
+//     }
+//     return "";
+// }

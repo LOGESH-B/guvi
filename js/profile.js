@@ -1,12 +1,14 @@
 
 var gdata;
-$("#logout").on('click',()=>{
+
+//logout
+$("#logout").on('click', () => {
     // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    var email=localStorage.getItem("username");
+    var email = localStorage.getItem("username");
     localStorage.removeItem("username");
-    var logout_data={
-        logout:true,
-        email:email
+    var logout_data = {
+        logout: true,
+        email: email
     }
     $.ajax({
         type: "POST",
@@ -21,7 +23,7 @@ $("#logout").on('click',()=>{
                 console.log("sql res:" + res.message);
                 alert("sql res:" + res.message);
                 var expires = (new Date(Date.now() + 1000 * 86400)).toUTCString();
-                localStorage.setItem("username",email);
+                localStorage.setItem("username", email);
                 // document.cookie = "username=" + email + ";expires=" + expires + ";path=/;";
                 location.href = "/guvi/profile.html"
             } else if (res.status == 500) {
@@ -43,9 +45,10 @@ $("#logout").on('click',()=>{
     location.href = "/guvi/login.html";
 })
 
-$("#update").on('click',()=>{
-    $("#update").css("display","none");
-    $("#save").css("display","block");
+//edit table
+$("#update").on('click', () => {
+    $("#update").css("display", "none");
+    $("#save").css("display", "block");
     console.log("clicked")
     $("#content").html(`    <div class="table-responsive">  <table class="table  table-striped table-hover">
             <tbody>
@@ -78,7 +81,8 @@ $("#update").on('click',()=>{
         </table></div>`);
 })
 
-$("#save").on('click',()=>{
+//save/update call
+$("#save").on('click', () => {
     console.log("clicked save")
     // var cookie_email = getCookie("username");
     var cookie_email = localStorage.getItem("username");
@@ -107,6 +111,7 @@ $("#save").on('click',()=>{
     alert(form_data);
     console.log(form_data)
 
+    //ajax
     $.ajax({
         type: "POST",
         url: "/guvi/php/register.php",
@@ -121,7 +126,7 @@ $("#save").on('click',()=>{
                 alert("sql res:" + res.message);
                 var expires = (new Date(Date.now() + 1000 * 86400)).toUTCString();
                 localStorage.removeItem(cookie_email);
-                localStorage.setItem("username",email);
+                localStorage.setItem("username", email);
                 // document.cookie = "username=" + email + ";expires=" + expires + ";path=/;";
                 location.href = "/guvi/profile.html"
             } else if (res.status == 500) {
@@ -142,11 +147,13 @@ $("#save").on('click',()=>{
     })
 })
 
+//init
 $(document).ready(() => {
-    var email=localStorage.getItem("username");
+    var email = localStorage.getItem("username");
     // var email = getCookie("username");
     var data;
     console.log(email);
+    //verify session
     if (email == null) {
         location.href = "/guvi/login.html";
     } else {
@@ -154,6 +161,7 @@ $(document).ready(() => {
             profile: true,
             email: email
         }
+        //ajax call
         $.ajax({
             type: "POST",
             url: "/guvi/php/profile.php",
@@ -165,11 +173,11 @@ $(document).ready(() => {
                 if (res.status == 200) {
                     // alert(res.message);
                     // console.log(res);
-                    data=res.user;
-                    gdata=res.user;
+                    data = res.user;
+                    gdata = res.user;
                     // localStorage.setItem("user",JSON.stringify(data));
                     setdata(data);
-                 } else if (res.status == 500) {
+                } else if (res.status == 500) {
                     alert(res.message);
                 } else if (res.status == 202) {
                     alert(res.message);
@@ -177,6 +185,7 @@ $(document).ready(() => {
                     alert(res.password);
                 }
                 else if (res.status == 404) {
+                    localStorage.removeItem("username");
                     location.href = "/guvi/login.html";
                 }
                 else {
@@ -185,7 +194,9 @@ $(document).ready(() => {
             }
         })
 
-        const setdata=(data)=>{
+
+        //setting initial table sdata
+        const setdata = (data) => {
             $("#content").html(`      <div class="table-responsive">  <table class="table  table-striped table-hover">
             <tbody>
                 <tr>
@@ -216,26 +227,25 @@ $(document).ready(() => {
 
         </table>
         </div>`);
-        }   
-        
-    }
+        }
 
+    }
 
 })
 
-
-const getCookie = (cname) => {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
+//to parse Browser cookie
+// const getCookie = (cname) => {
+//     let name = cname + "=";
+//     let decodedCookie = decodeURIComponent(document.cookie);
+//     let ca = decodedCookie.split(';');
+//     for (let i = 0; i < ca.length; i++) {
+//         let c = ca[i];
+//         while (c.charAt(0) == ' ') {
+//             c = c.substring(1);
+//         }
+//         if (c.indexOf(name) == 0) {
+//             return c.substring(name.length, c.length);
+//         }
+//     }
+//     return "";
+// }

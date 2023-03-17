@@ -1,13 +1,16 @@
 
 
 <?php
-
+//import
 // require '/xampp/vendor/autoload.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
+
+//redis init
 $redis = new Redis();
 $redis->connect("localhost",6379);
 
+//featch profile route
 if (isset($_POST['profile'])) {
     $email = htmlspecialchars($_POST['email']);
     $data=$redis->get($email);
@@ -31,6 +34,8 @@ if (isset($_POST['profile'])) {
     }
     
 }
+
+//logout route
 if (isset($_POST['logout'])) {
     $email = htmlspecialchars($_POST['email']);
     $data=$redis->delete($email);

@@ -1,21 +1,5 @@
-//parse cookie function
-const getCookie = (cname) => {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 
-//condition check
+//session check
 // var cookie_email = getCookie("username");
 var cookie_email = localStorage.getItem("username");
 console.log(cookie_email);
@@ -29,6 +13,7 @@ $('#register').on('click', () => {
 
     var email = $('#email').val();
     var password = $('#password').val();
+    var cpass = $('#c_password').val();
     var name = $('#name').val();
     var dob = $('#dob').val();
     var address = $('#address').val();
@@ -44,6 +29,11 @@ $('#register').on('click', () => {
         pincode: pincode,
         p_num: p_num,
         register: true
+    }
+    if(password!=cpass){
+        console.log("Password != Confirm password");
+        return;
+        // location.href='/guvi/login.html'
     }
 
     alert(form_data);
@@ -82,6 +72,10 @@ $('#register').on('click', () => {
         }
     })
 
+})
+
+
+// code done to seperate sql and mongodb call
     //     alert("On Mongo")
     //     $.ajax({
     //         type: "POST",
@@ -112,4 +106,21 @@ $('#register').on('click', () => {
     //         }
     //     })
 
-})
+
+    
+//parse cookie function
+// const getCookie = (cname) => {
+//     let name = cname + "=";
+//     let decodedCookie = decodeURIComponent(document.cookie);
+//     let ca = decodedCookie.split(';');
+//     for (let i = 0; i < ca.length; i++) {
+//         let c = ca[i];
+//         while (c.charAt(0) == ' ') {
+//             c = c.substring(1);
+//         }
+//         if (c.indexOf(name) == 0) {
+//             return c.substring(name.length, c.length);
+//         }
+//     }
+//     return "";
+// }

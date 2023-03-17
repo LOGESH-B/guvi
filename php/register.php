@@ -1,15 +1,19 @@
 <?php
+//import
 require_once __DIR__ . '/../vendor/autoload.php';
 
-
+//redis init
 $redis = new Redis();
 $redis->connect("localhost",6379);
 
+//sql init
 $con = new mysqli("localhost", "root", "");
 
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
+
+//mongodb init
 $client = new MongoDB\Client('mongodb+srv://guvi:guvi@cluster0.iocqv1o.mongodb.net/?retryWrites=true&w=majority');
 
 $users = $client->selectCollection('GUVI', 'userdetails');
@@ -17,6 +21,7 @@ mysqli_select_db($con, "phpdev");
 
 
 
+//register new user route
 if (isset($_POST['register'])) {
     try {
         $email = mysqli_real_escape_string($con, $_POST['email']);
@@ -49,6 +54,7 @@ if (isset($_POST['register'])) {
             'name'=>$name
         ];
         if ($query_run) {
+            //inset in mongodb
             $insertOneResult = $users->insertOne([
                 'email' => $email,
                 'address' => $address,
@@ -98,6 +104,7 @@ if (isset($_POST['register'])) {
         return;
     }
 } else {
+    //route for update profile
     try {
         $email = mysqli_real_escape_string($con, $_POST['email']);
 
@@ -117,7 +124,7 @@ if (isset($_POST['register'])) {
             return;
         }
 
-
+        //query
         $query = "UPDATE account SET email='$email' WHERE email='$old_email'";
         $query_run = mysqli_query($con, $query);
         $redis->delete($old_email);
@@ -130,6 +137,7 @@ if (isset($_POST['register'])) {
             'name'=>$name
         ];
         if ($query_run) {
+            //update mongodb
             $updatedOneResult = $users->updateOne(
                 ['email' =>  $old_email],
                 ['$set' => [
@@ -163,7 +171,7 @@ if (isset($_POST['register'])) {
             }
         } else {
             $res = [
-                "message" => "Mongo:Something Went Wrong",
+                "message" => "Sql:Something Went Wrong",
                 "status" => 404,
 
             ];
@@ -184,6 +192,7 @@ if (isset($_POST['register'])) {
 
 
 
+//code to register insert mongo
 // if (isset($_POST['register_mongo'])) {
 //     try {
 
